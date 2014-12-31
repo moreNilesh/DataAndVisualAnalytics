@@ -1,0 +1,6 @@
+bigrams = LOAD 's3://cse6242-bigram-big/*'  USING PigStorage('\t') AS (bigram:chararray, year:int, count:double, books:double);
+grouped_bigrams = GROUP bigrams BY bigram;
+avg_bigrams_per_book = FOREACH grouped_bigrams GENERATE group AS bigram, SUM(bigrams.count)/SUM(bigrams.books) AS avgCountPerBook; 
+sorted_avg_bigrams = ORDER avg_bigrams_per_book BY avgCountPerBook DESC, bigram ASC;
+first_ten_sorted = LIMIT sorted_avg_bigrams 10;
+STORE first_ten_sorted INTO 's3://cse6242-nmore6/output-big_v2.txt' using PigStorage('\t');

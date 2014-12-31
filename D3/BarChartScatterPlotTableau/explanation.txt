@@ -1,0 +1,43 @@
+Q2.2 Visualization needs to convey the data clearly and effectively to the reader
+I have removed redundant columns. For example, City MPG is in very much linear relation with Hwy MPG and hence would convey same information.
+
+I have tried to keep table simple with highlighted fields in red depicting out of ordinary values.
+For example, I have highlighted Cars and Hwy MPG values having value < 20.
+Also if HP > 400 then it is marked as different.
+ 
+
+--------------
+Q2.3 Bar charts. A Sports Car enthusiasts has locked down 5 targets and wants to
+visually compare the properties of these cars. Using D3 & Tableau, pick any 5 cars
+from the Sports Car category and use bar charts to visualize the differences in the 5
+most important attributes Retail
+Price, Engine Size, HP, City MPG and Hwy MPG.
+
+a. Since there are four charts in a page using gray scale for all four might not be a good idea,
+because user won't be able to make out the difference easily.
+I have tried to use medium saturation colors for making it visually pleasing.
+Also avoided colors considering solor-blindness.
+----
+
+b.
+Since these charts essentially convey only one characteristics (or similar characteristics),
+I preferred using gray scale here. I kept it low saturated for visual pleasantness.
+-----------
+
+Q2.4.
+Creative visualization. Using D3, construct a creative visualization that
+compares 4 manufacturers of your choice (e.g., Audi, Ford, Honda, etc.) You should use 5 attributes (Retail Price, Engine Size, HP, City MPG and Hwy MPG) used in Q2.3.
+
+The idea my visualization is based on is to be able to compare not only the average values for
+car manufacturer but also lowest value(e.g. Price) , highest value and average.
+
+For this, I have used combination of bar chart with scatter plot.
+
+The color chosen for bars is gray scale except for Hwy MPG/City MPG where we needed to 
+differentiate using colors. I chose gray scale because the scattered nodes are colored and too
+much color would make visualization NOISY.
+
+The colors for nodes are same color with different saturation. This will help differentiate easily.
+I used high satuartion for highest value and low saturation for lowest.
+
+------------

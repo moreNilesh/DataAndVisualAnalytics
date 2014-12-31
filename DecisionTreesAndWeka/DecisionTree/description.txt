@@ -1,0 +1,13 @@
+a. My initial approach used basic random tree approach where I selected next best attribute to split on randomly as described in Cutler's algorithm. I did not do grouping rather discretized continuous variables. While choosing the next best feature to split on, my code checks the ratio of  number of class lables(<=50k and >50k) to number of unique values for the feature (A continuous feature would have very large number of unique values).
+If  this ratio is less than 0.008(0.8%), code simply does not consider that attribute. When this ratio is greater than 0.008 then branching on values is acceptable and the feature values are discretized in a way.
+I choose this approach because it performed decently well and with minimal computation.
+
+b.Prediction accuracy 80.68% 
+
+c. Improvements - Added Information gain algorithm to choose the split attribute at each split. Also changed the stopping criteria: if node data size is less than 2% of training data size stop splitting. 
+
+Why it works? - Using information gain based split helps to most rapidly and correctly narrow the classification path because corelation of highest information gain attribute to class label is highest generally.
+Adding stopping criteria helps to reduce overfitting by ignoring less co-related data points(outliers).
+
+d. With Strategy 1 - 81.05% 
+   Combined Stategies - 82.10 %

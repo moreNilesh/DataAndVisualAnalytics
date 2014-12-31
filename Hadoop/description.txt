@@ -1,0 +1,11 @@
+Hadoop MapReduce program to calculate the sum of the weights of all incoming edges for each node in the graph.
+
+Map:
+Input - Key as line offset in a file and value as text line itself (containing source, destination and weight).
+output - emits destination as key and weight as value.
+How  - tokenizes the input line to get source, destination and weight and then simply emits (destiantion, weight) tuple
+
+Reduce:
+Input - destination as key and associated weights as iterator over values for that key.
+output - (key, value) tuple where key is destination and value is sum of all weights associated with the destination. Does not output anything, if sum is zero.
+How  - simply iterates over values set to calculate sum.

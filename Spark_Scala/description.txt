@@ -1,0 +1,14 @@
+Map :
+Input - text line containing non-zero weight as input. FilterZero weights takaes care to filter-out zero valued rows.
+output - emits destination as key and weight as value.
+How  - tokenizes the input line using "\t" separator to get source, destination and weight and then simply emits (destination, weight) tuple
+
+Reduce -
+I am using reduceByKey procedure which to sum-up all values associated with destination key.
+These (key,value) tuples are fed into map procedure which takes care to format key, values with '\t' separator. 
+
+Comparison between hadoop/java and spark/scala - 
+I found hadoop easy to program and understand than spark probably beacuse of difficult syntax of scala.
+but it took very less time (at least order of 10x) for spark to generate output especially noticeable with large graph file 
+which generates 11 MB output. Probably because the intermediate data is stored in main memory as opposed to disk in case of hadoop.
+  

@@ -1,0 +1,22 @@
+Nodes with less than 5 degree are filtered out. 
+
+
+Average Degree 6.017
+
+Network diameter   10
+
+Avg. Path length 3.565
+
+
+Top 10 songs according to page rank algorithm - 
+
+Walking on Air
+Birthday
+Can't get you out of my head
+Get outta my way
+Torn
+Toxic
+Not myself tonight
+Applause
+Wannabe
+Say You'll be There.

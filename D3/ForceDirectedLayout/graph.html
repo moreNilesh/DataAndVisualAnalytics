@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    .node {
+        stroke: #fff;
+        stroke-width: 2px;
+    }
+
+    .link {
+        stroke: #999;
+        stroke-opacity: .6;
+    }
+
+    .pin {
+        fill: #140f15;
+    }
+    .node:hover
+    {
+        fill: #31a5ff;
+    }
+    path {
+        stroke: steelblue;
+        stroke-width: 2;
+        fill: none;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: grey;
+        stroke-width:1;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        font-family: sans-serif;
+        font-size: 11px;
+    }
+</style>
+<div class="chart"></div>
+<head>
+    <title>Victor Hugo Had No Internet</title>
+</head>
+
+<body>
+<script src=".\d3\d3.v3.min.js"></script>
+<script src=".\d3\d3-tip.js"></script>
+<script>
+
+
+    /*
+     // d3.v3.min. js : could be limited functionality.
+     // above source has full fledged library I suppose
+
+     <div class="chart">
+     <div style="width: 40px;">4</div>
+     <div style="width: 80px;">8</div>
+     <div style="width: 150px;">15</div>
+     <div style="width: 160px;">16</div>
+     <div style="width: 230px;">23</div>
+     <div style="width: 420px;">42</div>
+     </div>
+     */
+
+    /*
+    //Width and height
+    var w = 500;
+    var h = 100;
+    var barPadding = 1;
+
+    var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
+        11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+
+    //Create SVG element
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+    svg.selectAll("rect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("x", function(d, i) {
+                return i * (w / dataset.length);
+            })
+            .attr("y", function(d) {
+                return h - d;  //Height minus data value
+            })
+            .attr("width", w / dataset.length - barPadding)
+            .attr("height", function(d) { return d;});
+     */
+    /*
+    var data = [4, 8, 15, 16, 23, 42];
+
+    var x = d3.scale.linear()
+            .domain([0, d3.max(data)])
+            .range([0, 420]);
+
+    d3.select(".chart") // chart style class is associated with element div
+            .selectAll("div")
+            .data(data)  // data binding
+            .enter().append("div") // append creates new elements
+            .style("width", function(d) { return d*10 + "px"; })
+            .text(function(d, i) { return d*i; })
+            .attr("font-size", "20px")
+            .attr("fill", "green");
+
+    */
+    //Size of region to render on
+
+    var width = 960,
+            height = 500;
+
+    var color_range = d3.scale.ordinal()
+                      .range(["#08306b", "#08519c", "#6baed6", "#c6dbef", "#00441b", "#238b45", "#74c476", "#810f7c", "#bcbddc", "#ffeda0"]);//.category10();
+    var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return "name:"+d.name + "  group:" + d.group + "  coolness:"+ d.coolness; });
+    // var color_range = d3.scale.category20c();
+    //D3 force directed layout
+    //Try playing with the charge and link distance
+    var force = d3.layout.force()
+            .charge(-200) // repel
+            .linkDistance(60)
+            .gravity(.05)
+            .size([width, height]);
+
+    // Add our canvas
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .call(tip);
+
+    // Select the miserables data
+    d3.json("miserables.json", function(error, graph)
+    {
+        force
+                .nodes(graph.nodes)
+                .links(graph.links)
+                .start();
+
+        var maxGroupVal = d3.max(graph.nodes, function(d) { return d.group; });
+        var minGroupVal = d3.min(graph.nodes, function(d) { return d.group; });
+
+        var xScale = d3.scale.linear()
+                .domain([minGroupVal, maxGroupVal])
+                .range([0, 255]);
+
+
+        var maxCoolness = d3.max(graph.nodes, function(d) { return d.coolness; });
+        var minCoolness = d3.min(graph.nodes, function(d) { return d.coolness; });
+
+        var coolnessScale = d3.scale.linear() // Q3 a)
+                .domain([minCoolness, maxCoolness])
+                .range([5, 10]);
+
+        var sqrRootCoolnessScale = d3.scale.pow(0.5);
+                //.domain([minCoolness, maxCoolness])
+                //.range(Math.sqrt(minCoolness), Math.sqrt(maxCoolness));
+
+        // Add the links
+        var link = svg.selectAll(".link")
+                .data(graph.links)
+                .enter().append("line")
+                .attr("class", "link")
+                .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+        var r = 6;
+
+        var nodeFixed = new Array (graph.nodes.length);
+        var index;
+        for (index = 0; index < graph.nodes.length; index++)
+        {
+            nodeFixed[index] = 0; // indicating that nodes are not fixed initially
+        }
+
+        var isFixed = 0;
+        // graph.nodes.
+        // Add the nodes
+        var node = svg.selectAll(".node")
+                .data(graph.nodes) // data  binding phase
+                .enter().append("circle")
+                .attr("class", "node")
+                .attr("r",
+                          function(d)
+                          {
+                              // return r;
+                              // return coolnessScale(d.coolness); // - Q3 a)
+                              return Math.sqrt(d.coolness);// sqrRootCoolnessScale(d.coolness);
+                          }
+                      )
+                //.attr("fill", "rgb(0,0,255)")
+                /*.attr("fill", function(d) {
+
+                    return "rgb(" + xScale(d.group) + ", 0, "+ xScale(d.group) +")";
+                })*/
+                .style("fill", function(d) { return color_range(d.group); })
+                .on("dblclick",function(d, i)
+                               {
+                                   if (d.fixed){
+                                       nodeFixed[i] = 0;
+                                       d.fixed = false;
+                                   }
+                                   else
+                                   {
+                                       nodeFixed[i] = 1;
+                                       d.fixed = true;
+                                   }
+                               }
+                    )
+
+                /*.style("fill", function(d, i)
+                                {
+                                    if(isFixed) return "black";
+                                    else return color_range(d.group);
+                                }
+                      )
+                */
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                // .text(function(d){ return d.name;})
+                .call(force.drag);
+
+
+        node.append("title")
+                .text(function(d) { return d.name; });
+
+
+        var label = svg.selectAll("text")
+                .data(graph.nodes)
+                .enter().append("text")
+                .text(function(d){return d.name;})
+                .attr("font-size",
+                                    function(d)
+                                    {
+                                        if(d.coolness > 25) return "13px";
+                                        return "0px";
+                                    }
+                     );
+
+        var pinlabel = svg.selectAll(".pin")
+                .data(graph.nodes) // data  binding phase
+                .enter().append("text")
+                .attr("class", "pin")
+                .text("*")
+                .attr("font-size",
+                                function(d, i)
+                                {
+                                    if(nodeFixed[i] == 1) return "12px";
+                                    return "0px";
+                                }
+                     );
+
+        // svg.selectAll("label");
+        //.attr("fill","rgb(44, 162, 95)");
+                /*.attr("x", function(d) {
+                    return d.x;
+                })
+                .attr("y", function(d) {
+                    return d.y;
+                })
+                .call(force.drag);*/
+
+        // node.select
+//Update stuff for animation:
+//   This takes the physics simulation for the force directed graoh and
+//   sets the location of the nodes and edges to the new positions
+        force.on("tick", function() {
+
+            node.attr("cx", function(d) { return d.x = Math.max(r, Math.min(width - r, d.x)); }) // to take care of lower and upper 'x' boundaries
+                     .attr("cy", function(d) { return d.y = Math.max(r, Math.min(height - r, d.y)); }) // to take care of lower and upper 'y' boundaries
+                     .style("fill", function(d, i)
+                                    {
+                                        if (nodeFixed[i] == 1)return "black";
+                                        return color_range(d.group);
+                                    }
+                            );
+
+            link.attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
+
+            label.attr("x", function(d){return 7+d.x;})
+                    .attr("y", function(d){return 4+d.y;});
+
+            pinlabel.attr("x", function(d){return 5+d.x;})
+                    .attr("y", function(d){return 4+d.y;});
+        });
+
+    }); // end of d3.json method
+
+
+</script>

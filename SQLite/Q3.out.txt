@@ -1,0 +1,56 @@
+
+
+Action & Adventure,64.2105263157895
+Adult,100.0
+Animation,53.0
+Art House & International,66.5555555555556
+Classics,81.75
+Comedy,67.1666666666667
+Documentary,65.12
+Drama,63.7209302325581
+Horror,61.0
+Kids & Family,82.7142857142857
+Musical & Performing Arts,60.1
+Mystery & Suspense,33.0
+Science Fiction & Fantasy,49.3181818181818
+Special Interest,84.5714285714286
+Sports & Fitness,100.0
+Television,60.5
+Western,65.5
+
+771355637,Star Trek Double Feature 3D,2013,100
+771356021,Star Trek: The Next Generation - Regeneration: Engaging the Borg,2013,100
+771358971,Starting From Scratch,2014,100
+771325937,Star Trek: The Next Generation - The Best Of Both Worlds,2013,95
+771318953,Star Trek: The Next Generation - A Celebration Of Season 2,2012,91
+771190753,Star Trek Into Darkness,2013,90
+771365948,The Fault In Our Stars,2014,89
+771307548,Star Trek: The Next Generation 25th Anniversary Event,2012,88
+771382814,Starship Rising,2014,88
+771362216,Starred Up,2014,87
+
+178810494,Anthony Daniels,10
+162663355,Carrie Fisher,10
+326396879,James Doohan,10
+162664667,Leonard Nimoy,12
+346416692,Walter Koenig,10
+162661860,William Shatner,11
+
+162656403,Billy Dee Williams,90.25
+326393041,Chris Pine,90.0
+770678894,Zachary Quinto,90.0
+162659692,Warwick Davis,85.3333333333333
+162684057,Simon Pegg,85.0
+162654291,Bruce Greenwood,82.0
+162655900,Alec Guinness,81.75
+603676177,David Prowse,81.75
+768117486,Denis Lawson,81.75
+770912593,Jack Purvis,81.75
+
+
+770674077,Kenneth Colley,96.0
+162656403,Billy Dee Williams,94.1614583333333
+771153353,Ralph McQuarrie,93.5
+162659692,Warwick Davis,92.5
+358317901,Jeremy Bulloch,91.4888888888889
+

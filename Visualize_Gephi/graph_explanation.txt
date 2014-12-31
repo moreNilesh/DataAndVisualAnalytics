@@ -1,0 +1,15 @@
+Graph layout used 'yifan hu' because we could clearly see dense and less populated areas with this layout.
+
+In this layout varying edge length allows visualizing clustered areas and non-clustered  areas distinctly. 
+Edge length is small for nodes with more high degree and edge length is long for nodes with less degree.
+
+I have kept node color as red and node size as 15 for nodes with degree in range 24 to 30.   
+For nodes with degree 15 to 23, I have kept color as green and size as 14.
+And for remaing nodes, I kept the default properties.
+
+This representation helps to partition graph in three distinct regions.
+One partition having tracks with most similar songs.
+Another with more than average number of similar songs and last partition with averagare or little more then average 
+number of similar songs.
+
+I did not see any point in altering edge thickness, since edges have no weight associated with them.

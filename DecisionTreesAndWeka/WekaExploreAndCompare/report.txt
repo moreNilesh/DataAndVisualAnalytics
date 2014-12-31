@@ -1,0 +1,77 @@
+Section A
+1.
+
+J48 -C 0.25 -M 2
+
+Time taken to build model: 5.57 seconds
+
+Accuracy - 86.0675 %
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 33273  2079 |     a = <=50K
+  4401  6757 |     b = >50K
+
+-----------------------------------------------------------
+2.
+
+SMO -C 0.01 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -C 250007 -E 1.0"
+
+Prediction accuracy 83.0918 %
+
+Time taken to build model: 23.72 seconds
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 33269  2083 |     a = <=50K
+  5781  5377 |     b = >50K
+
+------------------------------------------------------------
+3.
+RandomTree -K 0 -M 1.0 -S 1
+
+Prediction accuracy - 81.2427 %
+
+Time taken to build model: 0.62 seconds
+
+
+=== Confusion Matrix ===
+
+     a     b   <-- classified as
+ 31219  4133 |     a = <=50K
+  4591  6567 |     b = >50K
+-------------------------------------------------------------
+
+Section B
+
+1. The result of weka is 86.06% compared to my result 82.1% because my implementation discretizes continuous features in simplistic way. While choosing the next best feature to split on, my code checks the ratio of  number of class lables(<=50k and >50k) to number of unique values for the feature (A continuous feature would have very large number of unique values).
+If  this ratio is less than 0.008(0.8%), code simply does not consider that attribute. When this ratio is greater than 0.008 then branching on values is acceptable and the feature values are discretized in a way.
+
+------------------------------------------------------------------------------------------------------
+
+2. I choose Random tree which is ID3 randomized algorithm.
+The core logic of building decision tree is same but next best feature is selected randomly. It also handles continuous variables by using threshold-grouping logic but threshold is also selected randomly. 
+Strengths - It is very fast compared to C4.5 since no computation for choosing best attribute and threshold is needed. Has acceptable accuracy in most cases.
+Weaknesses - Very basic algorithm. This can overfit to the training data. Does not handle attributes with missing attribute  values. Does not do any pruning. Hence low accuracy.
+
+---------------------------------------------------------------------------------------------------------
+
+3. 
+
+Running time: Random Tree < J48 < SMO
+Accuracy: Random Tree <  SMO < J48
+
+Reasons:
+Running time for Random tree is lowest since minimal computation and does not use any pruning/does not handle missing values. And because of rudimentary approach its accuracy is lowest as well.
+
+SVM models instances as points in space mapping them in such a way that examples of separate categories are divided by a clear gap that is as wide as possible.  SVM is basically an iterative algorithm for solving optimization problem of dividing points. The convergence time is large resulting in largest running time of all three.
+
+I decreased parameter C from 1 to 0.01. Computation time is drastically reduced from order of hours to order of minutes. Explanation - 
+SMO breaks optimization problem into a series of smallest possible sub-problems governed by C. If value of C is small then the number of sub-problems are small and hence reducing convergence time. By reducing C 100 times, run time is increased but with some cost of accuracy.
+
+Confusion matrix tells us precise number of instances which were classified correctly/in-correctly. If all the elements lie on left to right diagonal classifier accuracy is 100% and if on opposite diagonal accuracy is 0%. 
+This row tells us that 33273 instances of a out of 33273 + 2079 instances were correctly identified and hence accuracy 33273/(33273+2079)
+a     b   <-- classified as
+   33273  2079 |     a = <=50K

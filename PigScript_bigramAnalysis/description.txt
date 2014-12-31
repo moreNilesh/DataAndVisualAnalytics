@@ -1,0 +1,19 @@
+Pig script uses AWS services S3 and EMR to analyze large datasets - Google bigrams.
+
+1. For each unique bigram, compute its average number of appearances per book
+
+2. Output the 10 bigrams with the highest average number of appearances per book along with
+their corresponding average sorted in descending order. If multiple bigrams have the same
+average, put them in alphabetical order.
+
+Example - 
+Input:
+I am 1936 342 90
+I am 1945 211 10
+very cool 1923 500 10
+very cool 1980 3210 1000
+very cool 2012 9994 3020
+
+Output - 
+I am 5.53
+very cool 3.40049628

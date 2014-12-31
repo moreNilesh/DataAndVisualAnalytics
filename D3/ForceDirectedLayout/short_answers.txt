@@ -1,0 +1,24 @@
+Q1.3-c  
+Scaling node sizes.
+Adjust the radius of each node in the graph based on how “cool” each character is. In the provided json file there is a “coolness” rating for each character.
+
+Scaling the node radii by Square root works better because it makes radii of less cool nodes(characters) much less than 
+with that linear scale approcah. And radii of cool characters is increased compared to linear approach.
+
+This VISUALLY FILTERS OUT less cool characters, 
+hence less cluttering and helps to focus on nodes of significance(Assuming Cool characters are what we intersted in). 
+
+Q1.4.
+Filtering node labels. Only show the labels for “cool” characters.Only draw
+labels for the characters with coolness factor above 25 (i.e., coolness > 25). What do
+you think about the new appearance in comparison with the old one ?
+
+
+This approach obviously reduces the cluttering and if we are interested in Cool characters this approach helps to focus on them.
+If we are interested in other characteristic, we can apply similar filtering schemes for better visual experience and interaction.
+
+Q1.7-b
+
+As you increase gravity, nodes become more cluttered towards centre of the graph. Hence I reduced gravity to 0.05.
+Also increasing negative charge to -200 helps since nodes repel each other with more negative charge.
+I increased link distance to 60. That also seems to help.

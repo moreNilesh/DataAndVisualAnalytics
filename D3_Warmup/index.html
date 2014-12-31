@@ -1,0 +1,33 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3 Test</title>
+		<script type="text/javascript" src="d3/d3.v3.min.js"></script>
+		<style type="text/css">
+		
+			div.bar {
+				display: inline-block;
+				width: 20px;
+				height: 75px;
+				background-color: Purple;
+				margin-right: 2px;
+			}
+		
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var dataset = [ 5, 10, 15, 20, 25 ];
+			d3.select("body").selectAll("p")
+				.data(dataset)
+				.enter()
+				.append("div")
+				.attr("class", "bar")
+				.style("height", function(d) {
+    								return d*5 + "px";
+				      });
+			d3.select("body").append("p").text("Nilesh More");
+			
+		</script>
+	</body>
+</html>
